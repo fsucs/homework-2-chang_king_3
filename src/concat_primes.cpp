@@ -1,15 +1,17 @@
 /** 
     @mainpage Concat Primes
 
-    @author Author
+    @author Samuel chang and Caswell King
 
-    What does this program do in short? Perhaps the name of the project goes here?
+    Outputs a string of 5 characters starting from the nth prime
 */
 
 /** \file concat_primes.cpp
-    \brief Brief explanation...
+    \brief     Outputs a string of 5 characters starting from the nth prime
     
-    Long explination goes here...
+    Generates a list of primes first up to 1000 chars
+	Reads starting from the nth place given
+	Only reads up to the first 5 chars
 
     Requires: C++11
 */
@@ -19,16 +21,45 @@
 #include<string>
 
 
-/** \brief Brief function explaination
+/** \brief Returns a string of all the primes concanated up to 1000 chars
    
-   And a long one...
+   Uses the sieve of Eratosthenes using the modern methods of squares
+   Goes up to 1980 since a concanated list of primes reaches 1000 chars at 1987
 
     @return std::string
 */
 std::string get_concatenated_primes()
 {
-    std::string concat_primes = "";
-    //Complete this function
+	int nLimit = 1980; //Found from a list of primes where 1987 concanated producues 1000 chars
+	int iFirstPrime = 2; //First prime for temporary use
+	std::string concat_primes = "";
+
+	bool arrbPrime[nLimit + 1]; //Bool array for checking off non-primes
+	for (int i = 0; i < nLimit + 1; i++) //Setting the entire array to true
+	{
+		bPrime[i] = true
+	}
+	arrbPrime[0] = false; //Making sure 0 and 1 are false since they're non-prime
+	arrbPrime[1] = false;
+
+	for (int i = 2; i < 44; i++) //Sieve of Eratosthenes from https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+	{
+		if (arrbPrime[i] == true)
+		{
+			for (int j = 0; (i^2 + j*i) < nLimit + 1; j++)
+			{
+				arrbPrime[i ^ 2 + j * i] = false;
+			}
+		}
+	}
+
+	for (int i = 0; i < nLimit + 1; i++) //Checks for primes left from sieve, and adds it onto the concat primes list
+	{
+		if (arrbPrime[i] = true)
+		{
+			concat_primes = concat_primes + std::to_string(i);
+		}
+	}
 
     return concat_primes.substr(0, 1000);
 }
